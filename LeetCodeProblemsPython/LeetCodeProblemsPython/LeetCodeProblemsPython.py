@@ -67,3 +67,32 @@ def testIsPalindrome(isPalindrome: Callable[[int], bool]):
 # Run tests with isPalindrome
 print("Testing isPalindrome:")
 testIsPalindrome(isPalindrome)
+
+def romanToInt(s: str) -> int:
+    myDict = {'I':1, 'V':5, 'X':10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    ans = 0
+    for i in range(len(s)):
+        if i < len(s) - 1 and myDict[s[i]] < myDict[s[i+1]]:
+            ans -= myDict[s[i]]
+        else:
+            ans += myDict[s[i]]
+    return ans
+def testRomanToInt(romanToInt: Callable[[str], int]):
+    case_1 = "III"
+    case_2 = "IV"
+    case_3 = "IX"
+    case_4 = "LVIII"
+    case_5 = "MCMXCIV"
+
+    # Assertions
+    assert romanToInt(case_1) == 3, f"Test case 1 failed: {romanToInt(case_1)}"
+    assert romanToInt(case_2) == 4, f"Test case 2 failed: {romanToInt(case_2)}"
+    assert romanToInt(case_3) == 9, f"Test case 3 failed: {romanToInt(case_3)}"
+    assert romanToInt(case_4) == 58, f"Test case 4 failed: {romanToInt(case_4)}"
+    assert romanToInt(case_5) == 1994, f"Test case 5 failed: {romanToInt(case_5)}"
+    
+    print("All Roman to Integer test cases passed!")
+
+# Run tests with romanToInt
+print("Testing romanToInt:")
+testRomanToInt(romanToInt)
