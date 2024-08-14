@@ -40,6 +40,8 @@ testTwoSum(twoSum_brute)
 print("Testing twoSum_onePass:")
 testTwoSum(twoSum_onePass)
 
+#####################################################################################
+
 # 9. Palindrome Number
 def isPalindrome(x: int) -> bool:
     word = str(x)
@@ -96,3 +98,54 @@ def testRomanToInt(romanToInt: Callable[[str], int]):
 # Run tests with romanToInt
 print("Testing romanToInt:")
 testRomanToInt(romanToInt)
+
+#####################################################################################
+
+# 14. Longest Common Prefix
+# Brute Force
+def longestCommonPrefix(strs: List[str]) -> str:
+    counter = 0
+    shortestStr = strs[0]
+    for word in strs:
+        if len(word) < len(shortestStr):
+            shortestStr = word
+    for char in shortestStr:
+        for word in strs:
+            if word[counter] != char:
+                return shortestStr[:counter]
+        counter += 1
+    return shortestStr[:counter]
+
+
+# sorted, compare first and last
+def longestCommonPrefix_Smart(strs: List[str]) -> str:
+    ans = ""
+    sortedList = sorted(strs)
+    first = sortedList[0]
+    last = sortedList[-1]
+    for i in range(min(len(first),len(last))):
+        if first[i] != last[i]:
+            return ans
+        else:
+            ans+= first[i]
+    return ans
+def testLongestCommonPrefix(longestCommonPrefix: Callable[[List[str]], str]):
+    case_1 = ["flower","flow","flight"]
+    case_2 = ["dog","racecar","car"]
+    case_3 = ["interview","interstate","internet"]
+    case_4 = ["a"]
+    case_5 = ["geeks", "geek", "gee", "ge"]
+
+    # Assertions
+    assert longestCommonPrefix(case_1) == "fl", f"Test case 1 failed: {longestCommonPrefix(case_1)}"
+    assert longestCommonPrefix(case_2) == "", f"Test case 2 failed: {longestCommonPrefix(case_2)}"
+    assert longestCommonPrefix(case_3) == "inter", f"Test case 3 failed: {longestCommonPrefix(case_3)}"
+    assert longestCommonPrefix(case_4) == "a", f"Test case 4 failed: {longestCommonPrefix(case_4)}"
+    assert longestCommonPrefix(case_5) == "ge", f"Test case 5 failed: {longestCommonPrefix(case_5)}"
+    
+    print("All Longest Common Prefix test cases passed!")
+
+# Run tests with longestCommonPrefix
+print("Testing longestCommonPrefix:")
+testLongestCommonPrefix(longestCommonPrefix)
+testLongestCommonPrefix(longestCommonPrefix_Smart)
