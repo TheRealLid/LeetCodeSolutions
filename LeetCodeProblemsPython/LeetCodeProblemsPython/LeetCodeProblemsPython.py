@@ -1,12 +1,13 @@
 from typing import List, Callable
 
-# 1. Two Sum
+#####################  1. Two Sum #################### 
 # Brute Force
 def twoSum_brute(nums: List[int], target: int) -> List[int]:
     for i in range(len(nums)):
         for j in range(i+1, len(nums)):
             if nums[i] + nums[j] == target:
                 return [i,j]
+
 # Optimized one pass
 def twoSum_onePass(nums: List[int], target: int) -> List[int]:
     compliments = {}
@@ -32,17 +33,15 @@ def testTwoSum(twoSum:Callable[[List[int],int],List[int]]):
     assert twoSum(case_3, trgt_3) == [0, 1], f"Test case 3 failed: {twoSum(case_3, trgt_3)}"
     print("All test cases passed!")
 
-# Run tests with twoSum_brute
 print("Testing twoSum_brute:")
 testTwoSum(twoSum_brute)
 
-# Run tests with twoSum_onePass
 print("Testing twoSum_onePass:")
 testTwoSum(twoSum_onePass)
 
 #####################################################################################
 
-# 9. Palindrome Number
+#####################  9. Palindrome Number #################### 
 def isPalindrome(x: int) -> bool:
     word = str(x)
     n = len(word)
@@ -101,7 +100,7 @@ testRomanToInt(romanToInt)
 
 #####################################################################################
 
-# 14. Longest Common Prefix
+#################### 14. Longest Common Prefix #################### 
 # Brute Force
 def longestCommonPrefix(strs: List[str]) -> str:
     counter = 0
@@ -116,7 +115,6 @@ def longestCommonPrefix(strs: List[str]) -> str:
         counter += 1
     return shortestStr[:counter]
 
-
 # sorted, compare first and last
 def longestCommonPrefix_Smart(strs: List[str]) -> str:
     ans = ""
@@ -129,6 +127,7 @@ def longestCommonPrefix_Smart(strs: List[str]) -> str:
         else:
             ans+= first[i]
     return ans
+
 def testLongestCommonPrefix(longestCommonPrefix: Callable[[List[str]], str]):
     case_1 = ["flower","flow","flight"]
     case_2 = ["dog","racecar","car"]
@@ -145,7 +144,6 @@ def testLongestCommonPrefix(longestCommonPrefix: Callable[[List[str]], str]):
     
     print("All Longest Common Prefix test cases passed!")
 
-# Run tests with longestCommonPrefix
 print("Testing longestCommonPrefix:")
 testLongestCommonPrefix(longestCommonPrefix)
 testLongestCommonPrefix(longestCommonPrefix_Smart)
