@@ -185,3 +185,66 @@ def testIsValid(isValid: Callable[[str], bool]):
     print("All isValid test cases passed!")
 
 testIsValid(isValid)
+
+
+#####################################################################################
+
+#################### 21. Merge Two Sorted Lists #################### 
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def testMergeTwoLists(mergeTwoLists: Callable[[ListNode, ListNode], ListNode]):
+    print(f"Testing function: {mergeTwoLists.__name__}")
+    # Helper function to convert a list to a linked list
+    def to_linked_list(lst):
+        dummy = ListNode(0)
+        current = dummy
+        for value in lst:
+            current.next = ListNode(value)
+            current = current.next
+        return dummy.next
+
+    # Helper function to convert a linked list to a list
+    def to_list(node):
+        result = []
+        while node:
+            result.append(node.val)
+            node = node.next
+        return result
+
+    # Test cases
+    case_1_list1 = to_linked_list([1, 2, 4])
+    case_1_list2 = to_linked_list([1, 3, 4])
+    case_2_list1 = to_linked_list([])
+    case_2_list2 = to_linked_list([])
+    case_3_list1 = to_linked_list([])
+    case_3_list2 = to_linked_list([0])
+
+    # Assertions
+    assert to_list(mergeTwoLists(case_1_list1, case_1_list2)) == [1, 1, 2, 3, 4, 4], "Test case 1 failed"
+    assert to_list(mergeTwoLists(case_2_list1, case_2_list2)) == [], "Test case 2 failed"
+    assert to_list(mergeTwoLists(case_3_list1, case_3_list2)) == [0], "Test case 3 failed"
+
+    print("All test cases passed!")
+
+def mergeTwoLists(list1:[ListNode], list2:[ListNode]):
+    current = head = ListNode(0) # set up dummy node and current
+    while list1 and list2: # loop while both lists are not empty
+        if list1.val < list2.val: # list1 is smaller, append the current node of list 1
+            current.next = list1
+            list1 = list1.next
+        else: # list2 is smaller, append the current node of list 2
+            current.next = list2
+            list2 = list2.next
+        current = current.next # move the current node forward as to not override
+    # append whichever(if any) list still has values
+    if list1:
+        current.next = list1
+    else:
+        current.next = list2
+    return head.next
+
+testMergeTwoLists(mergeTwoLists)
