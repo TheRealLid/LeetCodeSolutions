@@ -147,3 +147,41 @@ def testLongestCommonPrefix(longestCommonPrefix: Callable[[List[str]], str]):
 print("Testing longestCommonPrefix:")
 testLongestCommonPrefix(longestCommonPrefix)
 testLongestCommonPrefix(longestCommonPrefix_Smart)
+
+
+
+#####################################################################################
+
+#################### 20. Valid Parentheses #################### 
+
+def isValid(s: str) -> bool:
+    stack = []
+    bracket_pairs = {'(': ')', '[': ']', '{': '}'}
+    for char in s:
+            # If char is a left handed Parentheses
+        if char in bracket_pairs:
+            stack.append(char)
+        else:
+            # if stack is empty or the top element isnt the correct parentheses
+            if not stack or bracket_pairs[stack.pop()] != char: 
+                return False
+
+    return not stack
+
+def testIsValid(isValid: Callable[[str], bool]):
+    case_1 = "()"
+    case_2 = "()[]{}"
+    case_3 = "(]"
+    case_4 = "([)]"
+    case_5 = "{[]}"
+
+    # Assertions
+    assert isValid(case_1) == True, f"Test case 1 failed: {isValid(case_1)}"
+    assert isValid(case_2) == True, f"Test case 2 failed: {isValid(case_2)}"
+    assert isValid(case_3) == False, f"Test case 3 failed: {isValid(case_3)}"
+    assert isValid(case_4) == False, f"Test case 4 failed: {isValid(case_4)}"
+    assert isValid(case_5) == True, f"Test case 5 failed: {isValid(case_5)}"
+    
+    print("All isValid test cases passed!")
+
+testIsValid(isValid)
